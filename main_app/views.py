@@ -12,7 +12,7 @@ API_KEY = os.getenv('API_KEY')
 TOKEN = os.getenv('TOKEN')
 
 
-@csrf_exempt  # Temporarily disable CSRF for testing purposes
+@csrf_exempt  # temporarily disable CSRF for testing purposes
 def webhook(request):
     if request.method == 'POST':
         data = json.loads(request.body)

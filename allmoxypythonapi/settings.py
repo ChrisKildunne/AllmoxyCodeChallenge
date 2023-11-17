@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'allymoxypythonapi.urls'
+ROOT_URLCONF = 'allmoxypythonapi.urls'
 
 TEMPLATES = [
     {
@@ -68,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'allymoxypythonapi.wsgi.application'
+WSGI_APPLICATION = 'allmoxypythonapi.wsgi.application'
 
 
 # Database
