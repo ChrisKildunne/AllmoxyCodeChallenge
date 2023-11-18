@@ -1,7 +1,6 @@
 # views.py
 from .trello_api import create_trello_card, get_trello_list_ids
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render
 from django.http import JsonResponse
 from .models import WebhookData
 import json
@@ -12,28 +11,34 @@ API_KEY = os.getenv('API_KEY')
 TOKEN = os.getenv('TOKEN')
 
 
-@csrf_exempt  # temporarily disable CSRF for testing purposes
+@csrf_exempt  # Temporarily disable CSRF for testing purposes
 def webhook(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        WebhookData.objects.create(received_data=data,
-                                   order_id=data.get('order_id'),
-                                   customer_name=data.get('customer_name'),
-                                   total_amount=data.get('total_amount'),
-                                   order_status=data.get('order_status'))
+        raw_data = request.body.decode('utf-8')
 
-        trello_card_title = data.get('title', 'New Order')
+        try:
+            data = json.loads(raw_data)
+            is_json = True
+        except json.JSONDecodeError:
+            data = raw_data
+            is_json = False
 
-        trello_card_description = (
-            f"Order ID: {data.get('order_id')}\n"
-            f"Customer Name: {data.get('customer_name')}\n"
-            f"Total Amount: {data.get('total_amount')}\n"
-            f"Order Status: {data.get('order_status')}"
-        )
+        WebhookData.objects.create(received_data=raw_data)
+        trello_card_title = data.get(
+            'title', 'New Order') if is_json else "New Order"
+
+        if is_json:
+            trello_card_description = (
+                f"Order ID: {data.get('order_id', 'N/A')}\n"
+                f"Customer Name: {data.get('customer_name', 'N/A')}\n"
+                f"Total Amount: {data.get('total_amount', 'N/A')}\n"
+                f"Order Status: {data.get('order_status', 'N/A')}"
+            )
+        else:
+            trello_card_description = raw_data
 
         board_id = 'Vfa4GNIB'
         list_ids = get_trello_list_ids(board_id, API_KEY, TOKEN)
-
         list_name = 'Allmoxy'
         list_id = list_ids.get(list_name)
 
