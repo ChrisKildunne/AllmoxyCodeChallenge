@@ -27,12 +27,12 @@ This Python API application receives webhook calls with order information and cr
   API_KEY=your_api_key
   TOKEN=your_api_token
 
-2. **Database Migrations**
+3. **Database Migrations**
 
 - python3 manage.py makemigrations
 - python3 manage.py migrate
 
-3. **Run the Development Server**
+4. **Run the Development Server**
 
 - python3 manage.py runserver
 
