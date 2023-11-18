@@ -36,14 +36,14 @@ This Python API application receives webhook calls with order information and cr
 
 Send a POST request to the webhook endpoint with order data:
 
-- If the POST request is formatted differently it will be sent as a string
-
-
 curl -X POST http://localhost:8000/receiver_path/
 -H "Content-Type: application/json"
 -d '{"order_id": "12345", "customer_name": "John Doe", "total_amount": "99.99", "order_status": "Processing"}'
+
+- If the POST request is formatted differently it will be sent as a string
 
 ### Verifying the Results
 
 - **Django Admin:** Check the `WebhookData` model for received data.
 - **Trello Board:** Verify the creation of the task with the received order information. This is the link to my public trello board the information is being sent to https://trello.com/b/Vfa4GNIB/allmoxy.
+- If a user would like to send data to a different trello board the board_id and name would have to be changed.
