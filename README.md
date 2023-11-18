@@ -36,6 +36,9 @@ This Python API application receives webhook calls with order information and cr
 
 Send a POST request to the webhook endpoint with order data:
 
+- If the POST request is formatted differently it will be sent as a string
+
+
 curl -X POST http://localhost:8000/receiver_path/
 -H "Content-Type: application/json"
 -d '{"order_id": "12345", "customer_name": "John Doe", "total_amount": "99.99", "order_status": "Processing"}'
