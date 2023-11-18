@@ -21,6 +21,12 @@ This Python API application receives webhook calls with order information and cr
 
 - pip3 install django requests python-dotenv
 
+2.  **Create a .env**
+
+- Create a .env file in the root of the project with your api key and api token formatted as such:
+  API_KEY=your_api_key
+  TOKEN=your_api_token
+
 2. **Database Migrations**
 
 - python3 manage.py makemigrations
